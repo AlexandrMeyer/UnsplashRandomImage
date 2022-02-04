@@ -21,16 +21,16 @@ class NetworkManager {
     
     private init() {}
     
-    func fetchImageInfo(compleation: @escaping(Result<[Image], DecodingError>) -> Void) {
+    func fetchImageInfo(completion: @escaping(Result<[Image], DecodingError>) -> Void) {
         
         guard let url = URL(string: api) else {
-            compleation(.failure(.invalidURL))
+            completion(.failure(.invalidURL))
             return
         }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
-                compleation(.failure(.noData))
+                completion(.failure(.noData))
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
@@ -39,10 +39,10 @@ class NetworkManager {
                 let jsonDecoder = JSONDecoder()
                 let imageInfo = try jsonDecoder.decode([Image].self, from: data)
                 DispatchQueue.main.async {
-                    compleation(.success(imageInfo))
+                    completion(.success(imageInfo))
                 }
             } catch {
-                compleation(.failure(.decodingError))
+                completion(.failure(.decodingError))
             }
         }.resume()
     }

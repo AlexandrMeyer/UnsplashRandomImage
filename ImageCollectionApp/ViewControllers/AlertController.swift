@@ -13,8 +13,8 @@ final class AlertController {
     
     private init() {}
     
-    func showAlert(with title: String) -> UIAlertController {
-        let alertController = UIAlertController(title: title , message: "Image add to Favorite", preferredStyle: .alert)
+    func showAlert(with title: String, message: String) -> UIAlertController {
+        let alertController = UIAlertController(title: title , message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(okAction)
         

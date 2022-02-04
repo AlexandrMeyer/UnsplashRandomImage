@@ -18,9 +18,9 @@ protocol RandomImageCollectionViewModelProtocol {
 }
 
 class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
+    
     var title: String = "Images Collection"
     
-   
     private var images: [Image]?
     private var filteredImages: [Image] = []
     
@@ -34,7 +34,7 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
     
     func filterContentForSearchText(_ searchText: String, completion: @escaping () -> Void) {
         filteredImages = images?.filter{ image in
-            image.user.name.lowercased().contains(searchText.lowercased())
+            image.user!.name!.lowercased().contains(searchText.lowercased())
         } ?? []
         completion()
     }
@@ -62,6 +62,6 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
     
     func detailsViewModel(at indexPath: IndexPath) -> DetailImageViewModelProtocol {
         let image = getImageAt(indexPath)
-        return DetailImageViewModel(image: image!)
+        return DetailImageViewModel(image: image)
     }
 }

@@ -2,7 +2,7 @@
 //  DetailSavedImageViewController.swift
 //  ImageCollectionApp
 //
-//  Created by Александр on 03/02/2022.
+//  Created by Александр on 02/02/2022.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 class DetailSavedImageViewController: UIViewController {
     
     private lazy var image: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.layer.masksToBounds = true
@@ -25,6 +25,19 @@ class DetailSavedImageViewController: UIViewController {
         return label
     }()
     
+    private let button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .systemRed
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4
+        button.setTitle("Delete from Favorite", for: .normal)
+        button.addTarget(self, action: #selector(deleteFromFavorite), for: .touchUpInside)
+        
+        return button
+    }()
+    
     var viewModel: DetailSavedImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = viewModel.descriptionLabel
@@ -35,16 +48,17 @@ class DetailSavedImageViewController: UIViewController {
             image.image = UIImage(data: imageData)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
         
-        setupSubviews(image, descriptionLabel)
+        setupSubviews(image, descriptionLabel, button)
         
         setImageConstraints()
         setLabelConstraints()
+        setButtonConstraints()
     }
     
     private func setupSubviews(_ subViews: UIView...) {
@@ -68,5 +82,18 @@ class DetailSavedImageViewController: UIViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+    }
+    
+    private func setButtonConstraints() {
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+        ])
+    }
+    
+    @objc func deleteFromFavorite() {
+        viewModel.deleteFromFavoriteButtonTapped()
+        present(AlertController.shared.showAlert(with: viewModel.authorName, message: "Image was deleted"), animated: true)
     }
 }

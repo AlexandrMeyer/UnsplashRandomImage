@@ -13,6 +13,8 @@ protocol DetailSavedImageViewModelProtocol {
     var descriptionLabel: String { get }
     
     init(image: SaveImage)
+    
+    func deleteFromFavoriteButtonTapped()
 }
 
 class DetailSavedImageViewModel: DetailSavedImageViewModelProtocol {
@@ -30,16 +32,20 @@ class DetailSavedImageViewModel: DetailSavedImageViewModelProtocol {
     var descriptionLabel: String {
                      """
         Author: \(image.authorName ?? "")
-
+        
         Date of creation: \(image.creationData ?? "")
-
+        
         Location: \(image.location ?? "")
-
+        
         Number of downloads: \(image.loadingCount)
         """
     }
     
     required init(image: SaveImage) {
         self.image = image
+    }
+    
+    func deleteFromFavoriteButtonTapped() {
+        StorageManager.shared.delete(image)
     }
 }

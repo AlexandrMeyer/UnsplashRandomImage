@@ -8,10 +8,10 @@
 import Foundation
 
 struct Image: Decodable {
-    let creationData: String
-    let urls: URLS
-    let user: User
-    let links: Link
+    let creationData: String?
+    let urls: URLS?
+    let user: User?
+    let links: Link?
     let likes: Int?
     
     enum CodingKeys: String, CodingKey {
@@ -24,16 +24,16 @@ struct Image: Decodable {
 }
 
 struct URLS: Decodable {
-    let small: String
-    let regular: String
+    let small: String?
+    let regular: String?
 }
 
 struct User: Decodable {
-    let name: String
+    let name: String?
 }
 
 struct Link: Decodable {
-    let downloadLocation: String
+    let downloadLocation: String?
     
     enum CodingKeys: String, CodingKey {
         case downloadLocation = "download_location"

@@ -17,7 +17,7 @@ class ImageCellCollectionViewModel: ImageCellCollectionViewModelProtocol {
     private let image: Image?
     
     var imageData: Data? {
-        ImageManager.shared.fetchImageData(from: image?.urls.small)
+        ImageManager.shared.fetchImageData(from: image?.urls?.small)
     }
     
     required init(image: Image?) {

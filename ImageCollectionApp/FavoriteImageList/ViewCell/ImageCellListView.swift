@@ -20,7 +20,8 @@ class ImageCellListView: UITableViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 18)
         label.tintColor = .black
         return label
     }()
@@ -58,17 +59,16 @@ class ImageCellListView: UITableViewCell {
         NSLayoutConstraint.activate([
             image.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            image.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 108),
+            image.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 158),
             image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
     private func setLabelConstraint() {
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 55),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
             nameLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 10),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0)
         ])
     }
-
 }

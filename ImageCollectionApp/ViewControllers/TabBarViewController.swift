@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .white
@@ -29,7 +29,7 @@ class TabBarViewController: UITabBarController {
         
         return imageNavigationController
     }
-
+    
     private func setupFavoriteImageListViewController() -> UINavigationController {
         let favoriteImageListViewController = FavoriteImageListViewController()
         let icon = UITabBarItem(title: "Favorite", image: UIImage(systemName: "photo"), selectedImage: UIImage(systemName: "photo"))

@@ -16,16 +16,16 @@ class FavoriteImageListViewController: UITableViewController {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = FavoriteImageListViewModel()
         tableView.register(ImageCellListView.self, forCellReuseIdentifier: ReuseIdentifier.cell.rawValue)
         navigationItem.leftBarButtonItem = editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel = FavoriteImageListViewModel()
         tableView.reloadData()
     }
 }
@@ -35,11 +35,10 @@ extension FavoriteImageListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfRows()
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.cell.rawValue, for: indexPath) as! ImageCellListView
-
+        
         cell.viewModel = viewModel.cellViewModel(at: indexPath)
         
         return cell
@@ -64,13 +63,5 @@ extension FavoriteImageListViewController {
         let detailVC = DetailSavedImageViewController()
         detailVC.viewModel = viewModel.detailsViewModel(at: indexPath)
         navigationController?.pushViewController(detailVC, animated: true)
-//        let cell = tableView.cellForRow(at: indexPath) as! ImageCellListView
-//        cell.contentView.backgroundColor = UIColor(white: 0.1, alpha: 0.8)
-//        cell.backgroundColor = .black
     }
-//
-//    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath) as! ImageCellListView
-//        cell.contentView.backgroundColor = .black
-//    }
 }

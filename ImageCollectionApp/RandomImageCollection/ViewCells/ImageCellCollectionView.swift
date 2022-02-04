@@ -9,8 +9,8 @@ import UIKit
 
 class ImageCellCollectionView: UICollectionViewCell {
     
-     private lazy var image: UIImageView = {
-       let image = UIImageView()
+    private lazy var image: UIImageView = {
+        let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 6

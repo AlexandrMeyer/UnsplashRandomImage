@@ -32,7 +32,7 @@ class RandomImageCollectionViewController: UICollectionViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -42,6 +42,11 @@ class RandomImageCollectionViewController: UICollectionViewController {
         collectionView.register(ImageCellCollectionView.self, forCellWithReuseIdentifier: ReuseIdentifier.cell.rawValue)
         
         setupSearchController()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.reloadData()
     }
     
     private func showActivityIndicator(in view: UIView) -> UIActivityIndicatorView {
@@ -86,14 +91,14 @@ extension RandomImageCollectionViewController: UICollectionViewDelegateFlowLayou
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
-
+        
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
@@ -104,13 +109,13 @@ extension RandomImageCollectionViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text ?? "")
     }
-
+    
     private func filterContentForSearchText(_ searchText: String) {
         viewModel.filterContentForSearchText(searchText) { [weak self] in
             self?.collectionView.reloadData()
         }
     }
-
+    
     private func setupSearchController() {
         navigationItem.searchController = SearchController.shared.searchController
         SearchController.shared.searchController.searchResultsUpdater = self

@@ -10,7 +10,7 @@ import UIKit
 class DetailImageViewController: UIViewController {
     
     private lazy var image: UIImageView = {
-       let image = UIImageView()
+        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
         image.layer.masksToBounds = true
@@ -20,22 +20,9 @@ class DetailImageViewController: UIViewController {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = .systemFont(ofSize: 14)
         label.numberOfLines = 0
         return label
-    }()
-    
-    private let button: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .red
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 4
-        button.setTitle("Add to Favorite", for: .normal)
-        button.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
-        
-        return button
     }()
     
     var viewModel: DetailImageViewModelProtocol! {
@@ -48,17 +35,27 @@ class DetailImageViewController: UIViewController {
             image.image = UIImage(data: imageData)
         }
     }
-
+    
+    var savedImageViewModel: DetailSavedImageViewModelProtocol! {
+        didSet {
+            descriptionLabel.text = savedImageViewModel.descriptionLabel
+            guard let imageData = savedImageViewModel.imageData else {
+                image.image = UIImage(systemName: "photo")
+                return
+            }
+            image.image = UIImage(data: imageData)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
-        
-        setupSubviews(image, descriptionLabel, button)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add to Favorite", style: .plain, target: self, action: #selector(addToFavorite))
+        setupSubviews(image, descriptionLabel)
         
         setImageConstraints()
         setLabelConstraints()
-        setButtonConstraints()
     }
     
     private func setupSubviews(_ subViews: UIView...) {
@@ -84,17 +81,13 @@ class DetailImageViewController: UIViewController {
         ])
     }
     
-    private func setButtonConstraints() {
-        NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
-        ])
-    }
-    
     @objc func addToFavorite() {
         viewModel.addToFavoriteButtonTapped()
-        present(AlertController.shared.showAlert(with: viewModel.authorName), animated: true)
+        present(AlertController.shared.showAlert(with: viewModel.authorName, message: "Image add to Favorite"), animated: true)
     }
-
+    
+    @objc func deleteFromFavorite() {
+        savedImageViewModel.deleteFromFavoriteButtonTapped()
+        present(AlertController.shared.showAlert(with: savedImageViewModel.authorName, message: "Image was deleted"), animated: true)
+    }
 }
