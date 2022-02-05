@@ -17,9 +17,9 @@ class RandomImageCollectionViewController: UICollectionViewController {
     
     private var viewModel: RandomImageCollectionViewModelProtocol! {
         didSet {
-            viewModel.fetchImages {
-                self.collectionView.reloadData()
-                self.activityIndicator?.stopAnimating()
+            self.viewModel.fetchImages { [weak self] in
+                self?.collectionView.reloadData()
+                self?.activityIndicator?.stopAnimating()
             }
             title = viewModel.title
         }

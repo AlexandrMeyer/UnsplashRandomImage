@@ -8,18 +8,15 @@
 import Foundation
 
 protocol ImageCellListViewModelProtocol {
-    var imageData: Data? { get }
     var label: String? { get }
     init(image: SaveImage?)
+    
+    func getImageData(completion: @escaping(Data) -> Void)
 }
 
 class ImageCellListViewModel: ImageCellListViewModelProtocol {
     
     private let savedImage: SaveImage?
-    
-    var imageData: Data? {
-        ImageManager.shared.fetchImageData(from: savedImage?.image)
-    }
     
     var label: String? {
         savedImage?.authorName ?? ""
@@ -27,5 +24,16 @@ class ImageCellListViewModel: ImageCellListViewModelProtocol {
     
     required init(image: SaveImage?) {
         self.savedImage = image
+    }
+    
+    func getImageData(completion: @escaping (Data) -> Void) {
+        NetworkManager.shared.fetchImage(from: savedImage?.image) { result in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

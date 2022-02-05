@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DecodingError: Error {
+enum NetworkError: Error {
     case invalidURL
     case noData
     case decodingError
@@ -21,7 +21,7 @@ class NetworkManager {
     
     private init() {}
     
-    func fetchImageInfo(completion: @escaping(Result<[Image], DecodingError>) -> Void) {
+    func fetchImageInfo(completion: @escaping(Result<[Image], NetworkError>) -> Void) {
         
         guard let url = URL(string: api) else {
             completion(.failure(.invalidURL))
@@ -45,5 +45,21 @@ class NetworkManager {
                 completion(.failure(.decodingError))
             }
         }.resume()
+    }
+    
+    func fetchImage(from url: String?, complition: @escaping(Result<Data, NetworkError>) -> Void) {
+        guard let url = URL(string: url ?? "") else {
+            complition(.failure(.invalidURL))
+            return
+        }
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: url) else {
+                complition(.failure(.noData))
+                return
+            }
+            DispatchQueue.main.async {
+                complition(.success(imageData))
+            }
+        }
     }
 }

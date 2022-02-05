@@ -20,8 +20,9 @@ class ImageCellCollectionView: UICollectionViewCell {
     
     var viewModel: ImageCellCollectionViewModelProtocol! {
         didSet {
-            guard let imageData = viewModel.imageData else { return }
-            image.image = UIImage(data: imageData)
+            self.viewModel.getImageData { imageData in
+                self.image.image = UIImage(data: imageData)
+            }
         }
     }
     

@@ -28,22 +28,18 @@ class DetailImageViewController: UIViewController {
     var viewModel: DetailImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = viewModel.descriptionLabel
-            guard let imageData = viewModel.imageData else {
-                image.image = UIImage(systemName: "photo")
-                return
+            viewModel.getImageData { [weak self] imageData in
+                self?.image.image = UIImage(data: imageData)
             }
-            image.image = UIImage(data: imageData)
         }
     }
     
     var savedImageViewModel: DetailSavedImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = savedImageViewModel.descriptionLabel
-            guard let imageData = savedImageViewModel.imageData else {
-                image.image = UIImage(systemName: "photo")
-                return
+            viewModel.getImageData { imageData in
+                self.image.image = UIImage(data: imageData)
             }
-            image.image = UIImage(data: imageData)
         }
     }
     

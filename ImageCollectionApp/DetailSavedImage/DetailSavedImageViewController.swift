@@ -40,12 +40,10 @@ class DetailSavedImageViewController: UIViewController {
     
     var viewModel: DetailSavedImageViewModelProtocol! {
         didSet {
-            descriptionLabel.text = viewModel.descriptionLabel
-            guard let imageData = viewModel.imageData else {
-                image.image = UIImage(systemName: "photo")
-                return
+                viewModel.getImageData { [weak self]  imageData in
+                    self?.image.image = UIImage(data: imageData)
             }
-            image.image = UIImage(data: imageData)
+            descriptionLabel.text = self.viewModel.descriptionLabel
         }
     }
     

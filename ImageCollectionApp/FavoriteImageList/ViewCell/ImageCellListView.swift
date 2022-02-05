@@ -28,9 +28,10 @@ class ImageCellListView: UITableViewCell {
     
     var viewModel: ImageCellListViewModelProtocol! {
         didSet {
-            nameLabel.text = viewModel.label
-            guard let data = viewModel.imageData else { return }
-            image.image = UIImage(data: data)
+            viewModel.getImageData { [weak self] imageData in
+                self?.image.image = UIImage(data: imageData)
+            }
+            nameLabel.text = self.viewModel.label
         }
     }
     

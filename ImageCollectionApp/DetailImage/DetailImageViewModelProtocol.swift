@@ -8,22 +8,18 @@
 import Foundation
 
 protocol DetailImageViewModelProtocol {
-    var imageData: Data? { get }
     var authorName: String { get }
     var descriptionLabel: String { get }
     
     init(image: Image?)
     
     func addToFavoriteButtonTapped()
+    func getImageData(completion: @escaping(Data) -> Void)
 }
 
 class DetailImageViewModel: DetailImageViewModelProtocol {
     
     private let image: Image?
-    
-    var imageData: Data? {
-        ImageManager.shared.fetchImageData(from: image?.urls?.regular)
-    }
     
     var authorName: String {
         image?.user?.name ?? ""
@@ -47,5 +43,16 @@ class DetailImageViewModel: DetailImageViewModelProtocol {
     
     func addToFavoriteButtonTapped() {
         StorageManager.shared.save(image)
+    }
+    
+    func getImageData(completion: @escaping(Data) -> Void) {
+        NetworkManager.shared.fetchImage(from: image?.urls?.regular) { result in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

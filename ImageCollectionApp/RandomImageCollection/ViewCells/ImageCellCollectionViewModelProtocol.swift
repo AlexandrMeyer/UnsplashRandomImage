@@ -8,19 +8,27 @@
 import Foundation
 
 protocol ImageCellCollectionViewModelProtocol {
-    var imageData: Data? { get }
     init(image: Image?)
+    
+    func getImageData(completion: @escaping(Data) -> Void)
 }
 
 class ImageCellCollectionViewModel: ImageCellCollectionViewModelProtocol {
-    
+   
     private let image: Image?
-    
-    var imageData: Data? {
-        ImageManager.shared.fetchImageData(from: image?.urls?.small)
-    }
     
     required init(image: Image?) {
         self.image = image
+    }
+    
+    func getImageData(completion: @escaping (Data) -> Void) {
+        NetworkManager.shared.fetchImage(from: image?.urls?.small) { result in
+            switch result {
+            case .success(let data):
+                completion(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
