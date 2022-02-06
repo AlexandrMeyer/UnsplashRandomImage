@@ -11,8 +11,8 @@ class FavoriteImageListViewController: UITableViewController {
     
     private var viewModel: FavoriteImageListViewModelProtocol! {
         didSet {
-            viewModel.fetchImage { [unowned self] in
-                self.tableView.reloadData()
+            viewModel.fetchImage { [weak self] in
+                self?.tableView.reloadData()
             }
         }
     }

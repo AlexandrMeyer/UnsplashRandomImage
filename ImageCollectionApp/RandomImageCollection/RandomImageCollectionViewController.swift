@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class RandomImageCollectionViewController: UICollectionViewController {
     
     private let itemsPerRow: CGFloat = 2
@@ -105,23 +104,20 @@ extension RandomImageCollectionViewController: UICollectionViewDelegateFlowLayou
 }
 
 // MARK: - Search Controller
-extension RandomImageCollectionViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text ?? "")
-    }
-    
-    private func filterContentForSearchText(_ searchText: String) {
-        viewModel.filterContentForSearchText(searchText) { [weak self] in
-            self?.collectionView.reloadData()
-        }
-    }
+extension RandomImageCollectionViewController: UISearchBarDelegate {
     
     private func setupSearchController() {
         navigationItem.searchController = SearchController.shared.searchController
-        SearchController.shared.searchController.searchResultsUpdater = self
         SearchController.shared.searchController.obscuresBackgroundDuringPresentation = false
         SearchController.shared.searchController.automaticallyShowsSearchResultsController = true
         SearchController.shared.searchController.searchBar.placeholder = "Search"
+        SearchController.shared.searchController.searchBar.delegate = self
         definesPresentationContext = true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterContentForSearchText(searchText) { [weak self] in
+            self?.collectionView.reloadData()
+        }
     }
 }

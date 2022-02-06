@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct Images: Decodable {
+    var results: [Image]
+}
+
 struct Image: Decodable {
     let creationData: String?
     let urls: URLS?
@@ -39,3 +43,4 @@ struct Link: Decodable {
         case downloadLocation = "download_location"
     }
 }
+

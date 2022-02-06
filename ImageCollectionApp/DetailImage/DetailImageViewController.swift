@@ -37,8 +37,8 @@ class DetailImageViewController: UIViewController {
     var savedImageViewModel: DetailSavedImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = savedImageViewModel.descriptionLabel
-            viewModel.getImageData { imageData in
-                self.image.image = UIImage(data: imageData)
+            viewModel.getImageData { [weak self] imageData in
+                self?.image.image = UIImage(data: imageData)
             }
         }
     }

@@ -22,21 +22,31 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
     var title: String = "Images Collection"
     
     private var images: [Image]?
-    private var filteredImages: [Image] = []
+    private var filteredImages: Images?
+    var timer = Timer()
     
     var isFiltering: Bool {
         SearchController.shared.searchController.isActive && !SearchController.shared.searchBarIsEmpty
     }
     
     private func getImageAt(_ indexPath: IndexPath) -> Image? {
-        isFiltering ? filteredImages[indexPath.item] : images?[indexPath.item]
+        isFiltering ? filteredImages?.results[indexPath.item] : images?[indexPath.item]
     }
     
     func filterContentForSearchText(_ searchText: String, completion: @escaping () -> Void) {
-        filteredImages = images?.filter{ image in
-            image.user!.name!.lowercased().contains(searchText.lowercased())
-        } ?? []
-        completion()
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+            NetworkManager.shared.fetchSearchBarImage(searchText: searchText) { [weak self] result in
+                switch result {
+                case .success(let images):
+                    self?.filteredImages = images
+                    self?.images = images?.results
+                    completion()
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        })
     }
     
     func fetchImages(completion: @escaping () -> Void) {
@@ -52,7 +62,7 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
     }
     
     func numberOfItems() -> Int {
-        isFiltering ? filteredImages.count : images?.count ?? 0
+        isFiltering ? filteredImages?.results.count ?? 0 : images?.count ?? 0
     }
     
     func cellViewModel(at indexpath: IndexPath) -> ImageCellCollectionViewModelProtocol {

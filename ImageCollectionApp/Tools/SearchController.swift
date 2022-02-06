@@ -13,14 +13,17 @@ class SearchController {
     
     private init() {}
     
-    let searchController: UISearchController = {
-        let searchController = UISearchController()
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-        return searchController
-    }()
+    let searchController: UISearchController = UISearchController()
+//    {
+//        let searchController = UISearchController()
+////        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+//        return searchController
+//    }()
     
     var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
+    
+    
 }

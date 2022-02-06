@@ -20,10 +20,10 @@ class FavoriteImageListViewModel: FavoriteImageListViewModelProtocol {
     private var savedImages: [SaveImage] = []
     
     func fetchImage(completion: @escaping () -> Void) {
-        StorageManager.shared.fetchData { result in
+        StorageManager.shared.fetchData { [weak self] result in
             switch result {
             case .success(let images):
-                self.savedImages = images
+                self?.savedImages = images
                 completion()
             case .failure(let error):
                 print(error)

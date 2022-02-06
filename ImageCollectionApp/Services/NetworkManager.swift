@@ -21,6 +21,26 @@ class NetworkManager {
     
     private init() {}
     
+    func fetchSearchBarImage(searchText: String, completion: @escaping(Result<Images?, NetworkError>) -> Void) {
+        NetworkService.shared.request(searchText: searchText) { data, error in
+            guard let data = data else {
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            do {
+                let jsonDecoder = JSONDecoder()
+                let imageInfo = try jsonDecoder.decode(Images.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(imageInfo))
+                }
+            } catch {
+                completion(.failure(.decodingError))
+            }
+        }
+    }
+    
     func fetchImageInfo(completion: @escaping(Result<[Image], NetworkError>) -> Void) {
         
         guard let url = URL(string: api) else {
@@ -61,5 +81,21 @@ class NetworkManager {
                 complition(.success(imageData))
             }
         }
+    }
+    
+    
+    
+    
+    func fetchPoster(from url: URL, completion: @escaping(Data, URLResponse) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let response = response else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            guard url.lastPathComponent == response.url?.lastPathComponent else { return }
+            DispatchQueue.main.async {
+                completion(data, response)
+            }
+        }.resume()
     }
 }
