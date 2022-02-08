@@ -19,7 +19,6 @@ class NetworkService {
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = prepareHeaders()
         request.httpMethod = "get"
-        print(request)
         
         let task = createDataTask(from: request, completion: completion)
         task.resume()
