@@ -14,21 +14,16 @@ protocol ImageCellCollectionViewModelProtocol {
 }
 
 class ImageCellCollectionViewModel: ImageCellCollectionViewModelProtocol {
-   
+    
     private let image: Image?
     
     required init(image: Image?) {
         self.image = image
     }
     
-    func getImageData(completion: @escaping (Data) -> Void) {
-        NetworkManager.shared.fetchImage(from: image?.urls?.small) { result in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
-            }
+    func getImageData(completion: @escaping(Data) -> Void) {
+        CaсhedData.shared.fetchData(from: image?.urls?.small ?? "") { data in
+            completion(data)
         }
     }
 }

@@ -67,19 +67,20 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchImage(from url: String?, complition: @escaping(Result<Data, NetworkError>) -> Void) {
-        guard let url = URL(string: url ?? "") else {
-            complition(.failure(.invalidURL))
-            return
-        }
-        DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else {
-                complition(.failure(.noData))
+    func fetchImage(from url: URL, completion: @escaping(Data, URLResponse) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, let response = response else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            
+            guard url == response.url else {
+                print("urls do not equal")
                 return
             }
             DispatchQueue.main.async {
-                complition(.success(imageData))
+                completion(data, response)
             }
-        }
+        }.resume()
     }
 }

@@ -46,13 +46,8 @@ class DetailImageViewModel: DetailImageViewModelProtocol {
     }
     
     func getImageData(completion: @escaping(Data) -> Void) {
-        NetworkManager.shared.fetchImage(from: image?.urls?.small) { result in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
-            }
+        CaсhedData.shared.fetchData(from: image?.urls?.small ?? "") { data in
+            completion(data)
         }
     }
 }

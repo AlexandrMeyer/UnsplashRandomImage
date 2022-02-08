@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B51D253527B2CF630031158F /* CaсhedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51D253427B2CF630031158F /* CaсhedData.swift */; };
 		B5D5AE3D27AAAB8400EE6C09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE3C27AAAB8400EE6C09 /* AppDelegate.swift */; };
 		B5D5AE4727AAAB8400EE6C09 /* ImageCollectionApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE4527AAAB8400EE6C09 /* ImageCollectionApp.xcdatamodeld */; };
 		B5D5AE4927AAAB8700EE6C09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5D5AE4827AAAB8700EE6C09 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B51D253427B2CF630031158F /* CaсhedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CaсhedData.swift"; sourceTree = "<group>"; };
 		B5D5AE3927AAAB8400EE6C09 /* ImageCollectionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCollectionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5D5AE3C27AAAB8400EE6C09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5D5AE4627AAAB8400EE6C09 /* ImageCollectionApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageCollectionApp.xcdatamodel; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				B5D5AE5327AAABB100EE6C09 /* StorageManager.swift */,
 				B5D5AE6427AAC1CF00EE6C09 /* NetworkManager.swift */,
 				B5E47DC227AEE15F002C0D45 /* NetworkService.swift */,
+				B51D253427B2CF630031158F /* CaсhedData.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51D253527B2CF630031158F /* CaсhedData.swift in Sources */,
 				B5E47DC327AEE15F002C0D45 /* NetworkService.swift in Sources */,
 				B5D5AE8327AC1F3200EE6C09 /* ImageCellListViewModelProtocol.swift in Sources */,
 				B5D5AE7127AAD5D800EE6C09 /* AlertController.swift in Sources */,

@@ -46,14 +46,9 @@ class DetailSavedImageViewModel: DetailSavedImageViewModelProtocol {
         StorageManager.shared.delete(image)
     }
     
-    func getImageData(completion: @escaping (Data) -> Void) {
-        NetworkManager.shared.fetchImage(from: image.image) { result in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
-            }
+    func getImageData(completion: @escaping(Data) -> Void) {
+        CaсhedData.shared.fetchData(from: image.image ?? "") { data in
+            completion(data)
         }
     }
 }

@@ -26,14 +26,9 @@ class ImageCellListViewModel: ImageCellListViewModelProtocol {
         self.savedImage = image
     }
     
-    func getImageData(completion: @escaping (Data) -> Void) {
-        NetworkManager.shared.fetchImage(from: savedImage?.image) { result in
-            switch result {
-            case .success(let data):
-                completion(data)
-            case .failure(let error):
-                print(error)
-            }
+    func getImageData(completion: @escaping(Data) -> Void) {
+        CaсhedData.shared.fetchData(from: savedImage?.image ?? "") { data in
+            completion(data)
         }
     }
 }
