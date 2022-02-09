@@ -8,25 +8,9 @@
 import Foundation
 import CoreData
 
-class StorageManager {
+final class StorageManager {
     
     static var shared = StorageManager()
-    
-    // MARK: - Core Data stack
-    private var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ImageCollectionApp")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-    
-    private var viewContext: NSManagedObjectContext {
-        persistentContainer.viewContext
-    }
     
     private init() {}
     
@@ -68,5 +52,21 @@ class StorageManager {
             viewContext.delete(image)
             saveContext()
         }
+    }
+    
+    // MARK: - Core Data stack
+    private var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "ImageCollectionApp")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    private var viewContext: NSManagedObjectContext {
+        persistentContainer.viewContext
     }
 }

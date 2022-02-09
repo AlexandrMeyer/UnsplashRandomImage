@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CaсhedData {
+final class CaсhedData {
     
     static let shared = CaсhedData()
     

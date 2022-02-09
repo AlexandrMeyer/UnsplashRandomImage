@@ -48,6 +48,6 @@ class FavoriteImageListViewModel: FavoriteImageListViewModelProtocol {
     
     func detailsViewModel(at indexPath: IndexPath) -> DetailSavedImageViewModelProtocol {
         let image = savedImages[indexPath.row]
-        return DetailSavedImageViewModel(image: image)
+        return DetailSavedImageViewModel(savedImage: image)
     }
 }

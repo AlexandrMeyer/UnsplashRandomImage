@@ -19,6 +19,4 @@ class SearchController {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
     }
-    
-    
 }

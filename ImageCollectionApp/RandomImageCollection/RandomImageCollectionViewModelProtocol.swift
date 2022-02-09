@@ -39,9 +39,13 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
             NetworkManager.shared.fetchSearchBarImage(searchText: searchText) { [weak self] result in
                 switch result {
                 case .success(let images):
-                    self?.filteredImages = images
-                    self?.images = images?.results
-                    completion()
+                    if images?.results.count != 0 {
+                        self?.filteredImages = images
+                        self?.images = images?.results
+                        completion()
+                    } else {
+                        self?.fetchImages(completion: completion)
+                    }
                 case .failure(let error):
                     print(error)
                 }

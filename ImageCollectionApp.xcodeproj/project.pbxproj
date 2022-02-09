@@ -29,7 +29,6 @@
 		B5D5AE7E27AADA4000EE6C09 /* ImageCellListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE7D27AADA4000EE6C09 /* ImageCellListView.swift */; };
 		B5D5AE8127AADF8200EE6C09 /* ImageCellCollectionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE8027AADF8200EE6C09 /* ImageCellCollectionViewModelProtocol.swift */; };
 		B5D5AE8327AC1F3200EE6C09 /* ImageCellListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE8227AC1F3200EE6C09 /* ImageCellListViewModelProtocol.swift */; };
-		B5D5AE8527AC620900EE6C09 /* DetailSavedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE8427AC620800EE6C09 /* DetailSavedImageViewController.swift */; };
 		B5D5AE8827AC625000EE6C09 /* DetailSavedImageViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D5AE8727AC625000EE6C09 /* DetailSavedImageViewModelProtocol.swift */; };
 		B5E47DC327AEE15F002C0D45 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E47DC227AEE15F002C0D45 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
@@ -59,7 +58,6 @@
 		B5D5AE7D27AADA4000EE6C09 /* ImageCellListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellListView.swift; sourceTree = "<group>"; };
 		B5D5AE8027AADF8200EE6C09 /* ImageCellCollectionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellCollectionViewModelProtocol.swift; sourceTree = "<group>"; };
 		B5D5AE8227AC1F3200EE6C09 /* ImageCellListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellListViewModelProtocol.swift; sourceTree = "<group>"; };
-		B5D5AE8427AC620800EE6C09 /* DetailSavedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSavedImageViewController.swift; sourceTree = "<group>"; };
 		B5D5AE8727AC625000EE6C09 /* DetailSavedImageViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSavedImageViewModelProtocol.swift; sourceTree = "<group>"; };
 		B5E47DC227AEE15F002C0D45 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +97,6 @@
 				B5D5AE7227AAD8BF00EE6C09 /* RandomImageCollection */,
 				B5D5AE7A27AAD98200EE6C09 /* DetailImage */,
 				B5D5AE7327AAD8EF00EE6C09 /* FavoriteImageList */,
-				B5D5AE8627AC620F00EE6C09 /* DetailSavedImage */,
 				B5D5AE8927AC66C300EE6C09 /* ViewControllers */,
 				B5D5AE6827AAC35700EE6C09 /* Tools */,
 				B5D5AE6127AAC11800EE6C09 /* Sourse */,
@@ -204,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D5AE7B27AADA0A00EE6C09 /* DetailImageViewModelProtocol.swift */,
+				B5D5AE8727AC625000EE6C09 /* DetailSavedImageViewModelProtocol.swift */,
 				B5D5AE7827AAD97C00EE6C09 /* DetailImageViewController.swift */,
 			);
 			path = DetailImage;
@@ -216,15 +214,6 @@
 				B5D5AE7D27AADA4000EE6C09 /* ImageCellListView.swift */,
 			);
 			path = ViewCell;
-			sourceTree = "<group>";
-		};
-		B5D5AE8627AC620F00EE6C09 /* DetailSavedImage */ = {
-			isa = PBXGroup;
-			children = (
-				B5D5AE8727AC625000EE6C09 /* DetailSavedImageViewModelProtocol.swift */,
-				B5D5AE8427AC620800EE6C09 /* DetailSavedImageViewController.swift */,
-			);
-			path = DetailSavedImage;
 			sourceTree = "<group>";
 		};
 		B5D5AE8927AC66C300EE6C09 /* ViewControllers */ = {
@@ -311,7 +300,6 @@
 				B5D5AE8327AC1F3200EE6C09 /* ImageCellListViewModelProtocol.swift in Sources */,
 				B5D5AE7127AAD5D800EE6C09 /* AlertController.swift in Sources */,
 				B5D5AE7C27AADA0A00EE6C09 /* DetailImageViewModelProtocol.swift in Sources */,
-				B5D5AE8527AC620900EE6C09 /* DetailSavedImageViewController.swift in Sources */,
 				B5D5AE5E27AABFD100EE6C09 /* Image.swift in Sources */,
 				B5D5AE6A27AAC63000EE6C09 /* ReuseIdentifier.swift in Sources */,
 				B5D5AE3D27AAAB8400EE6C09 /* AppDelegate.swift in Sources */,

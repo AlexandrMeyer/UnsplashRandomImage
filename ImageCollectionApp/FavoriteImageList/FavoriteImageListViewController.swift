@@ -60,8 +60,8 @@ extension FavoriteImageListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailSavedImageViewController()
-        detailVC.viewModel = viewModel.detailsViewModel(at: indexPath)
+        let detailVC = DetailImageViewController()
+        detailVC.savedImageViewModel = viewModel.detailsViewModel(at: indexPath)
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }

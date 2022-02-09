@@ -25,9 +25,24 @@ class DetailImageViewController: UIViewController {
         return label
     }()
     
+    private let button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .systemRed
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 4
+        button.setTitle("Delete from Favorite", for: .normal)
+        button.addTarget(self, action: #selector(deleteFromFavorite), for: .touchUpInside)
+        button.isHidden = true
+        
+        return button
+    }()
+    
     var viewModel: DetailImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = viewModel.descriptionLabel
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add to Favorite", style: .plain, target: self, action: #selector(addToFavorite))
             viewModel.getImageData { [weak self] imageData in
                 self?.image.image = UIImage(data: imageData)
             }
@@ -37,7 +52,8 @@ class DetailImageViewController: UIViewController {
     var savedImageViewModel: DetailSavedImageViewModelProtocol! {
         didSet {
             descriptionLabel.text = savedImageViewModel.descriptionLabel
-            viewModel.getImageData { [weak self] imageData in
+            button.isHidden = false
+            savedImageViewModel.getCachedImageData { [weak self]  imageData in
                 self?.image.image = UIImage(data: imageData)
             }
         }
@@ -47,11 +63,12 @@ class DetailImageViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.largeTitleDisplayMode = .never
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add to Favorite", style: .plain, target: self, action: #selector(addToFavorite))
-        setupSubviews(image, descriptionLabel)
+        
+        setupSubviews(image, descriptionLabel, button)
         
         setImageConstraints()
         setLabelConstraints()
+        setButtonConstraints()
     }
     
     private func setupSubviews(_ subViews: UIView...) {
@@ -74,6 +91,14 @@ class DetailImageViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+    }
+    
+    private func setButtonConstraints() {
+        NSLayoutConstraint.activate([
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
     

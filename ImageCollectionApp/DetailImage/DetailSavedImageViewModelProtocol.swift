@@ -11,43 +11,42 @@ protocol DetailSavedImageViewModelProtocol {
     var authorName: String { get }
     var descriptionLabel: String { get }
     
-    init(image: SaveImage)
+    init(savedImage: SaveImage)
     
     func deleteFromFavoriteButtonTapped()
-    
-    func getImageData(completion: @escaping(Data) -> Void)
+    func getCachedImageData(completion: @escaping(Data) -> Void)
 }
 
 class DetailSavedImageViewModel: DetailSavedImageViewModelProtocol {
     
-    private let image: SaveImage
+    private let savedImage: SaveImage
     
     var authorName: String {
-        image.authorName ?? ""
+        savedImage.authorName ?? ""
     }
     
     var descriptionLabel: String {
                      """
-        Author: \(image.authorName ?? "")
+        Author: \(savedImage.authorName ?? "")
         
-        Date of creation: \(image.creationData ?? "")
+        Date of creation: \(savedImage.creationData ?? "")
         
-        Location: \(image.location ?? "")
+        Location: \(savedImage.location ?? "")
         
-        Number of downloads: \(image.loadingCount)
+        Number of downloads: \(savedImage.loadingCount)
         """
     }
     
-    required init(image: SaveImage) {
-        self.image = image
+    required init(savedImage: SaveImage) {
+        self.savedImage = savedImage
     }
     
     func deleteFromFavoriteButtonTapped() {
-        StorageManager.shared.delete(image)
+        StorageManager.shared.delete(savedImage)
     }
     
-    func getImageData(completion: @escaping(Data) -> Void) {
-        CaсhedData.shared.fetchData(from: image.image ?? "") { data in
+    func getCachedImageData(completion: @escaping(Data) -> Void) {
+        CaсhedData.shared.fetchData(from: savedImage.image ?? "") { data in
             completion(data)
         }
     }
