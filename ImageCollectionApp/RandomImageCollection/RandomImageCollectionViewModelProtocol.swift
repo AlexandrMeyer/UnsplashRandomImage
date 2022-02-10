@@ -23,7 +23,7 @@ class RandomImageCollectionViewModel: RandomImageCollectionViewModelProtocol {
     
     private var images: [Image]?
     private var filteredImages: Images?
-    var timer = Timer()
+    private var timer = Timer()
     
     var isFiltering: Bool {
         SearchController.shared.searchController.isActive && !SearchController.shared.searchBarIsEmpty

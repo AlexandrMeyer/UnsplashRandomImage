@@ -9,7 +9,7 @@ import UIKit
 
 class RandomImageCollectionViewController: UICollectionViewController {
     
-    private let itemsPerRow: CGFloat = 2
+    private var itemsPerRow: CGFloat = 2
     private let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     
     private var activityIndicator: UIActivityIndicatorView?
@@ -45,6 +45,11 @@ class RandomImageCollectionViewController: UICollectionViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        if size.width > size.height {
+            itemsPerRow = 3
+        } else {
+            itemsPerRow = 2
+        }
         collectionView.reloadData()
     }
     
