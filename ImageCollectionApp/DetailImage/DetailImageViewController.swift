@@ -20,7 +20,7 @@ class DetailImageViewController: UIViewController {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 13)
         label.numberOfLines = 0
         return label
     }()
@@ -82,7 +82,7 @@ class DetailImageViewController: UIViewController {
             image.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             image.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             image.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            image.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 2)
+            image.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 1.8)
         ])
     }
     
@@ -98,7 +98,7 @@ class DetailImageViewController: UIViewController {
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -90)
         ])
     }
     

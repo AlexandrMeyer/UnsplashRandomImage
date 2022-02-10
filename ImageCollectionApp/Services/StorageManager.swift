@@ -16,12 +16,13 @@ final class StorageManager {
     
     // MARK: - Core Data Saving support
     func saveContext () {
+        viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            } catch let error {
+                print(error)
             }
         }
     }
