@@ -71,6 +71,14 @@ class DetailImageViewController: UIViewController {
         setButtonConstraints()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        view.frame.size = size
+        setImageConstraints()
+        setLabelConstraints()
+        setButtonConstraints()
+    }
+    
     private func setupSubviews(_ subViews: UIView...) {
         subViews.forEach { subview in
             view.addSubview(subview)
